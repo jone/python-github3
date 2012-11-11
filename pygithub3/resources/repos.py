@@ -115,3 +115,18 @@ class Hook(Resource):
 
     def __str__(self):
         return '<Hook (%s)>' % getattr(self, 'name', '')
+
+
+class Status(Resource):
+
+    _dates = ('created_at', 'updated_at')
+    _maps = {'creator': User}
+
+    VALID_STATES = ['pending', 'success', 'error', 'failure']
+
+    @staticmethod
+    def is_valid_state(state):
+        return state in Status.VALID_STATES
+
+    def __str__(self):
+        return '<Status (%s)>' % getattr(self, 'state', '')
